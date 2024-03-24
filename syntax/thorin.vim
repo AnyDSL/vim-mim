@@ -2,12 +2,13 @@ if exists("b:current_syntax")
     finish
 endif
 
-syn match thorinBin         "[+-]\?0[bB][01]\+"
-syn match thorinOct         "[+-]\?0[oO]\o\+"
-syn match thorinOct         "[+-]\?\d\+"
-syn match thorinHex         "[+-]\?0[xX]\x\+"
+syn match thorinBin         "[+-]\?0[bB][01]\+\([iI]\d\+\)\?"
+syn match thorinOct         "[+-]\?0[oO]\o\+\([iI]\d\+\)\?"
+syn match thorinDec         "[+-]\?\d\+\([iI]\d\+\)\?"
+syn match thorinHex         "[+-]\?0[xX]\x\+\([iI]\d\+\)\?"
 syn match thorinIdx         "\d\+_\d\+"
-syn match thorinKeyword     "\.[a-zA-Z]\+"
+syn match thorinIdx         "\d\+[₀-₉]\+"
+syn match thorinKeyword     "\.[a-zA-Z0-9_]\+"
 syn match thorinAxiom       "%[a-zA-Z]\+"
 syn match thorinVar         "@[_a-zA-Z][_0-9a-zA-Z]*"
 syn match thorinIdentifier  "[_a-zA-Z][_0-9a-zA-Z]*"
