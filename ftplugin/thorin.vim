@@ -5,5 +5,10 @@ let b:did_ftplugin = 1
 
 set iskeyword+=\
 
-abbrev \to →
-abbrev -> →
+iabbrev \to →
+iabbrev -> →
+iabbrev \lam λ
+" iabbrev \< ‹
+" iabbrev \> ›
+iabbrev \< ⟨
+iabbrev \> ⟩
