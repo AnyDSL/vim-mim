@@ -1,18 +1,15 @@
-# vim-thorin2
-Vim syntax highlighting for thorin2
+# vim-mim
+
+Vim syntax highlighting for [Mim](https://anydsl.github.io/MimIR/langref.html).
 
 ## Install
 
-### Vim-plug Users
+### Vim-Plug
 
-Put
 ```vim
-Plug 'AnyDSL/vim-thorin2'
+Plug 'AnyDSL/vim-mim'
 ```
-into your plugged-section in your `~/.vimrc` and run
-```vim
-:PlugInstall
-```
-### Other Plugin Systems
 
-Similar to above.
+```lua
+{ "AnyDSL/vim-mim" }
+```
