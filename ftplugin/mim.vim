@@ -12,3 +12,5 @@ iabbrev \lam λ
 " iabbrev \> ›
 iabbrev \< ⟨
 iabbrev \> ⟩
+iabbrev \{ ⦃
+iabbrev \} ⦄
