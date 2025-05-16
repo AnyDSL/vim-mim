@@ -9,9 +9,9 @@ iabbrev \to →
 iabbrev \top ⊤
 iabbrev \bot ⊥
 iabbrev -> →
-iabbrev \lam λ
-iabbrev \< ›
-iabbrev \> ‹
+iabbrev \lm λ
+iabbrev \< ‹
+iabbrev \> ›
 iabbrev \<< «
 iabbrev \>> »
 iabbrev \{ ⦃
