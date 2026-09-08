@@ -37,33 +37,46 @@ syn keyword mimConstant bot top
 syn match   mimConstant "⊥"
 syn match   mimConstant "⊤"
 
+" "return" is an ordinary identifier, not a keyword, cf. langref.md#decl -
+" but it is the conventional name for the implicit return continuation of a
+" "fun"/"cn" declaration, e.g. "fun f(x: Nat): Nat = return x;".
+syn keyword mimSpecial return
+
 " Literals {{{1
+" Every pattern below is anchored with `\%(\w\)\@1<!`: a leading digit (or
+" sign) only starts a fresh literal if it does not continue a preceding
+" identifier, e.g. the "3" in "arg3" or the "85" in "v_85" must stay part of
+" that identifier instead of turning into a number.
+
 " L ::= dec+
-syn match mimNumber "[+-]\=\d\+"
+syn match mimNumber "\%(\w\)\@1<![+-]\=\d\+"
 " L ::= "0" ["bB"] bin+
-syn match mimNumber "[+-]\=0[bB][01]\+"
+syn match mimNumber "\%(\w\)\@1<![+-]\=0[bB][01]\+"
 " L ::= "0" ["oO"] oct+
-syn match mimNumber "[+-]\=0[oO][0-7]\+"
+syn match mimNumber "\%(\w\)\@1<![+-]\=0[oO][0-7]\+"
 " L ::= "0" ["xX"] hex+
-syn match mimNumber "[+-]\=0[xX]\x\+"
+syn match mimNumber "\%(\w\)\@1<![+-]\=0[xX]\x\+"
 
 " L ::= sign? dec+ eE sign? dec+
 "    |  sign? dec+ "." dec* (eE sign? dec+)?
 "    |  sign? dec* "." dec+ (eE sign? dec+)?
-syn match mimFloat "[+-]\=\d\+[eE][+-]\=\d\+"
-syn match mimFloat "[+-]\=\d\+\.\d*\([eE][+-]\=\d\+\)\="
-syn match mimFloat "[+-]\=\d*\.\d\+\([eE][+-]\=\d\+\)\="
+syn match mimFloat "\%(\w\)\@1<![+-]\=\d\+[eE][+-]\=\d\+"
+syn match mimFloat "\%(\w\)\@1<![+-]\=\d\+\.\d*\([eE][+-]\=\d\+\)\="
+syn match mimFloat "\%(\w\)\@1<![+-]\=\d*\.\d\+\([eE][+-]\=\d\+\)\="
 
 " L ::= sign? "0" ["xX"] hex+ pP sign? dec+
 "    |  sign? "0" ["xX"] hex+ "." hex* pP sign? dec+
 "    |  sign? "0" ["xX"] hex* "." hex+ pP sign? dec+
-syn match mimFloat "[+-]\=0[xX]\x\+[pP][+-]\=\d\+"
-syn match mimFloat "[+-]\=0[xX]\x\+\.\x*[pP][+-]\=\d\+"
-syn match mimFloat "[+-]\=0[xX]\x*\.\x\+[pP][+-]\=\d\+"
+syn match mimFloat "\%(\w\)\@1<![+-]\=0[xX]\x\+[pP][+-]\=\d\+"
+syn match mimFloat "\%(\w\)\@1<![+-]\=0[xX]\x\+\.\x*[pP][+-]\=\d\+"
+syn match mimFloat "\%(\w\)\@1<![+-]\=0[xX]\x*\.\x\+[pP][+-]\=\d\+"
 
 " X_n ::= dec+ sub+ | dec+ "_" dec+   (index literal of type "Idx n")
-syn match mimIndex "\d\+[₀-₉]\+"
-syn match mimIndex "\d\+_\d\+"
+syn match mimIndex "\%(\w\)\@1<!\d\+[₀-₉]\+"
+syn match mimIndex "\%(\w\)\@1<!\d\+_\d\+"
+" Sized-literal spelling emitted by the printer/normalizer, e.g. "144I32",
+" "0I32", or "0x1Fi16": a number followed by an "i"/"I" bit-width suffix.
+syn match mimIndex "\%(\w\)\@1<![+-]\=\%(0[bB][01]\+\|0[oO][0-7]\+\|0[xX]\x\+\|\d\+\)[iI]\d\+"
 
 " esc ::= \' \" \0 \a \\ \b \f \n \r \t \v
 syn match mimEscape "\\['\"0abfnrtv\\]" contained
@@ -100,6 +113,7 @@ hi def link mimKeyword     Keyword
 hi def link mimType        Type
 hi def link mimBoolean     Boolean
 hi def link mimConstant    Constant
+hi def link mimSpecial     Special
 hi def link mimNumber      Number
 hi def link mimFloat       Float
 hi def link mimIndex       Number
