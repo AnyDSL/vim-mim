@@ -91,9 +91,19 @@ syn region mimString start=+"+ skip=+\\.+ end=+"+ contains=mimEscape oneline
 " "/* ... */" comments are not nested.
 syn region  mimComment    start="/\*" end="\*/" contains=mimTodo
 syn match   mimComment    "//.*$" contains=mimTodo
-" "/// ..." comments are forwarded to the generated Markdown output.
-syn match   mimCommentDoc "///.*$" contains=mimTodo
 syn keyword mimTodo TODO FIXME XXX NOTE contained
+
+" "/// ..." comments are forwarded to the generated Markdown output, so
+" highlight their payload as Markdown; cf. langref.md#comments. This is a
+" line-by-line approximation - Markdown block constructs spanning multiple
+" "///" lines (fenced code, multi-line lists, ...) will not be recognized as
+" such, only their per-line inline markup will.
+syn include @mimMarkdown syntax/markdown.vim
+unlet! b:current_syntax
+
+syn match   mimCommentDocMark "///" contained
+syn region  mimCommentDoc start="///" end="$" keepend
+      \ contains=mimCommentDocMark,mimTodo,@mimMarkdown
 
 " Punctuation {{{1
 " ( ) [ ] { } ⦃ ⦄ ‹ › « » plus the ⟨ ⟩ ⟪ ⟫ alternatives and the ASCII
@@ -109,22 +119,23 @@ syn match mimOperator "=>\|->\|→\|[=@$#|:]\|∪"
 " Highlighting {{{1
 let b:current_syntax = "mim"
 
-hi def link mimKeyword     Keyword
-hi def link mimType        Type
-hi def link mimBoolean     Boolean
-hi def link mimConstant    Constant
-hi def link mimSpecial     Special
-hi def link mimNumber      Number
-hi def link mimFloat       Float
-hi def link mimIndex       Number
-hi def link mimChar        Character
-hi def link mimString      String
-hi def link mimEscape      SpecialChar
-hi def link mimComment     Comment
-hi def link mimCommentDoc  SpecialComment
-hi def link mimTodo        Todo
-hi def link mimDelimiter   Delimiter
-hi def link mimOperator    Operator
+hi def link mimKeyword        Keyword
+hi def link mimType           Type
+hi def link mimBoolean        Boolean
+hi def link mimConstant       Constant
+hi def link mimSpecial        Special
+hi def link mimNumber         Number
+hi def link mimFloat          Float
+hi def link mimIndex          Number
+hi def link mimChar           Character
+hi def link mimString         String
+hi def link mimEscape         SpecialChar
+hi def link mimComment        Comment
+hi def link mimCommentDoc     SpecialComment
+hi def link mimCommentDocMark SpecialComment
+hi def link mimTodo           Todo
+hi def link mimDelimiter      Delimiter
+hi def link mimOperator       Operator
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
