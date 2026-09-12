@@ -24,23 +24,31 @@ setlocal nospell
 
 " Digraph-style input for tokens that only exist as Unicode primary
 " terminals in the surface syntax, cf. langref.md#terminals.
-iabbrev <buffer> \to  →
-iabbrev <buffer> \top ⊤
-iabbrev <buffer> \bot ⊥
-iabbrev <buffer> ->   →
-iabbrev <buffer> \lm  λ
-iabbrev <buffer> \<   ‹
-iabbrev <buffer> \>   ›
-iabbrev <buffer> \<<  «
-iabbrev <buffer> \>>  »
-iabbrev <buffer> \{   ⦃
-iabbrev <buffer> \}   ⦄
+iabbrev <buffer> \to   →
+iabbrev <buffer> \gets ←
+iabbrev <buffer> \top  ⊤
+iabbrev <buffer> \bot  ⊥
+iabbrev <buffer> \box  □
+iabbrev <buffer> \cup  ∪
+iabbrev <buffer> ->    →
+iabbrev <buffer> <-    ←
+iabbrev <buffer> \lm   λ
+iabbrev <buffer> \<    ‹
+iabbrev <buffer> \>    ›
+iabbrev <buffer> \<<   «
+iabbrev <buffer> \>>   »
+iabbrev <buffer> \{    ⦃
+iabbrev <buffer> \}    ⦄
 
 let b:undo_ftplugin = "setlocal iskeyword< comments< commentstring< spell<"
       \ . "| iunabbrev <buffer> \\to"
+      \ . "| iunabbrev <buffer> \\gets"
       \ . "| iunabbrev <buffer> \\top"
       \ . "| iunabbrev <buffer> \\bot"
+      \ . "| iunabbrev <buffer> \\box"
+      \ . "| iunabbrev <buffer> \\cup"
       \ . "| iunabbrev <buffer> ->"
+      \ . "| iunabbrev <buffer> <-"
       \ . "| iunabbrev <buffer> \\lm"
       \ . "| iunabbrev <buffer> \\<"
       \ . "| iunabbrev <buffer> \\>"
