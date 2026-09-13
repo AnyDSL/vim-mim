@@ -112,11 +112,12 @@ syn region  mimCommentDoc start="///" end="$" keepend
       \ contains=mimCommentDocMark,mimTodo,@mimMarkdown
 
 " Punctuation {{{1
-" ( ) [ ] { } ⦃ ⦄ ‹ › « » plus the ⟨ ⟩ ⟪ ⟫ alternatives; cf. langref.md#terminals.
-" Note that "<" ">" "<<" ">>" are *not* spellings of "‹" "›" "«" "»" (any more):
-" they are the relational and shift infix operators below.
+" ( ) [ ] { } ⦃ ⦄ ‹ › « »; cf. langref.md#terminals.
+" Note that neither "<" ">" "<<" ">>" nor "⟨" "⟩" "⟪" "⟫" are spellings of
+" "‹" "›" "«" "»" (any more): the former are the relational and shift infix
+" operators below, the latter are not tokens at all.
 syn match mimDelimiter "[()\[\]{}]"
-syn match mimDelimiter "[⦃⦄‹›«»⟨⟩⟪⟫]"
+syn match mimDelimiter "[⦃⦄‹›«»]"
 syn match mimDelimiter "[,;.]"
 
 " The remaining primary terminals, cf. langref.md#terminals:
